@@ -1,34 +1,50 @@
 ﻿using System;
+using System.Linq;
 
-public class DifferenceCalculator
+public class ArraySorter
 {
-    public static int CalculateDifference(int n)
+    public static void SortAscending(int[] arr)
     {
-        int absoluteDifference = Math.Abs(n - 123);
+        // Используем LINQ для сортировки по возрастанию
+        Array.Sort(arr);
+        Console.WriteLine("Отсортированный массив по возрастанию:");
+        PrintArray(arr);
+    }
 
-        if (n > 123)
-        {
-            return absoluteDifference * 3;
-        }
-        else
-        {
-            return absoluteDifference;
-        }
+    public static void SortDescending(int[] arr)
+    {
+        // Используем LINQ для сортировки по убыванию
+        Array.Sort(arr, (x, y) => y.CompareTo(x));
+        Console.WriteLine("Отсортированный массив по убыванию:");
+        PrintArray(arr);
+    }
+
+    public static int[] ConcatenateArrays(int[] arr1, int[] arr2)
+    {
+        // Используем LINQ для объединения массивов
+        return arr1.Concat(arr2).ToArray();
+    }
+
+    // Вспомогательный метод для вывода массива на консоль
+    public static void PrintArray(int[] arr)
+    {
+        Console.WriteLine(string.Join(", ", arr));
     }
 
     public static void Main(string[] args)
     {
-        Console.WriteLine("Введите целое число:");
-        string input = Console.ReadLine();
+        int[] arr1 = { 5, 2, 9, 1, 5, 6 };
+        int[] arr2 = { 8, 3, 7, 4 };
 
-        if (int.TryParse(input, out int n))
-        {
-            int difference = CalculateDifference(n);
-            Console.WriteLine($"Абсолютная разность между {n} и 123: {difference}");
-        }
-        else
-        {
-            Console.WriteLine("Некорректный ввод. Пожалуйста, введите целое число.");
-        }
+        Console.WriteLine("Исходный массив:");
+        PrintArray(arr1);
+
+        SortAscending(arr1.ToArray()); // Создаем копию массива, чтобы не менять оригинал
+
+        SortDescending(arr1.ToArray());
+
+        int[] concatenatedArray = ConcatenateArrays(arr1, arr2);
+        Console.WriteLine("Объединенный массив:");
+        PrintArray(concatenatedArray);
     }
 }
